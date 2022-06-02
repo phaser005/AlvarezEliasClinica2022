@@ -46,6 +46,7 @@ export class EspecialistasComponent implements OnInit {
         Validators.pattern("^[0-9]*")
       ]],
       'especialidad': ['', Validators.required],
+      'especialidadEscrita': [''],
       'email': ['', [
         Validators.required, 
         Validators.email
@@ -59,7 +60,7 @@ export class EspecialistasComponent implements OnInit {
 
     this.firebase.cargarEspecialidades().valueChanges().subscribe(data => {
       this.especialidades = data;
-      console.log(this.especialidades);
+      //console.log(this.especialidades);
     })
   }
 
@@ -69,17 +70,17 @@ export class EspecialistasComponent implements OnInit {
 
   cambiarEspecialidad(e:any) {
     this.especialistaForm.controls['especialidad'].setValue(e.target.value);
+    this.especialistaForm.controls['especialidadEscrita'].setValue(e.target.value);
   }
 
   async enviar(){
 
-    var nuevoUsuario = await this.createUser();
-
     if(this.captcha.checkCaptcha()){
-    
-    }
-
-    console.log(nuevoUsuario);
+      var nuevoUsuario = await this.createUser();
+      //console.log(nuevoUsuario);
+    }else{
+      alert("Captcha Incorrecto!");
+    }    
 
     //this.auth.uploadImage();
   }
@@ -87,15 +88,26 @@ export class EspecialistasComponent implements OnInit {
   async createUser(){
     var nuevoUsuario = new Usuario();
 
+    var especialidadLista = this.especialistaForm.get('especialidad')?.value
+    var especialidadEscrita = this.especialistaForm.get("especialidadEscrita")?.value
+
     nuevoUsuario.nombre = this.especialistaForm.get("nombre")?.value;
     nuevoUsuario.apellido = this.especialistaForm.get("apellido")?.value;
     nuevoUsuario.edad = this.especialistaForm.get("edad")?.value;
     nuevoUsuario.DNI = this.especialistaForm.get("dni")?.value;
-    nuevoUsuario.especialidad = this.especialistaForm.get("especialidad")?.value;
+    nuevoUsuario.especialidad = especialidadEscrita;
     nuevoUsuario.email = this.especialistaForm.get("email")?.value;
     nuevoUsuario.password = this.especialistaForm.get("password")?.value;
     nuevoUsuario.tipo = "especialista"
     nuevoUsuario.habilitado = false;
+
+    if( especialidadLista != especialidadEscrita ){
+      var nuevaEspecialidad:Especialidad = new Especialidad()
+      nuevaEspecialidad.aprobada = false;
+      nuevaEspecialidad.imagen = "";
+      nuevaEspecialidad.especialidad = especialidadEscrita;
+      this.firebase.guardarNuevaEspecialidad(nuevaEspecialidad);
+    }
     await this.saveImage(nuevoUsuario, this.imageA);
     return nuevoUsuario
   }

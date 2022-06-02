@@ -58,10 +58,10 @@
             </div>
 
             <div class="col-md-6 mb-3">
-                <label for="especialidad" class="form-label"> Especialidad Seleccionada </label>
-                <input type="text" class="form-control" id="especialidad" placeholder="Ingrese su especialidad si no se encuentra en la lista" formControlName="especialidad">
+                <label for="especialidadEscrita" class="form-label"> Especialidad Seleccionada </label>
+                <input type="text" class="form-control" id="especialidadEscrita" placeholder="Ingrese su especialidad si no se encuentra en la lista" formControlName="especialidadEscrita">
                 <small class="invalid" 
-                *ngIf="especialistaForm.controls.especialidad.errors?.required && especialistaForm.controls.especialidad.touched">Este campo no puede quedar vacio
+                *ngIf="especialistaForm.controls.especialidadEscrita.errors?.required && especialistaForm.controls.especialidadEscrita.touched">Este campo no puede quedar vacio
                 </small>
             </div>
 

@@ -26,6 +26,10 @@ export class FirebaseService {
   cargarEspecialidades(): AngularFirestoreCollection<Especialidad>{
     this.referenciaEspecialidad = this.db.collection(this.especialidadesPath)
     return this.referenciaEspecialidad;
-}
+  }
+
+  guardarNuevaEspecialidad(especialidad:Especialidad){
+    this.referenciaEspecialidad.add({...especialidad});
+  }
   
 }

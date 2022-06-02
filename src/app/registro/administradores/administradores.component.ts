@@ -60,13 +60,12 @@ export class AdministradoresComponent implements OnInit {
 
   async enviar(){
 
-    var nuevoUsuario = await this.createUser();
-
     if(this.captcha.checkCaptcha()){
-    
+      var nuevoUsuario = await this.createUser();
+      console.log(nuevoUsuario);
+    }else{
+      alert("Captcha Incorrecto!");
     }
-
-    console.log(nuevoUsuario);
 
     //this.auth.uploadImage();
   }
