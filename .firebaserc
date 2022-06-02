@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "alvarezeliasclinica2022": {
+      "hosting": {
+        "alvarezEliasClinica2022": [
+          "alvarezeliasclinica2022"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "alvarezeliasclinica2022"
+  }
+}

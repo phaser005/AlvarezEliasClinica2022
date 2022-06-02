@@ -120,6 +120,10 @@
               "devServerTarget": "alvarezEliasClinica2022:serve:production"
             }
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {}
         }
       }
     }
