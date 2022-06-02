@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { BienvenidaComponent } from './paginas/bienvenida/bienvenida.component';
 import { LoginComponent } from './paginas/login/login.component';
+import { AdministradoresComponent } from './registro/administradores/administradores.component';
+import { EspecialistasComponent } from './registro/especialistas/especialistas.component';
 import { PacientesComponent } from './registro/pacientes/pacientes.component';
 
 const routes: Routes = [
@@ -15,6 +17,14 @@ const routes: Routes = [
   { 
     path: 'alta-paciente', 
     component: PacientesComponent
+  },
+  { 
+    path: 'alta-especialista', 
+    component: EspecialistasComponent 
+  },
+  { 
+    path: 'alta-administrador', 
+    component: AdministradoresComponent 
   },
 
 ];

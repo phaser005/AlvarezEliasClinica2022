@@ -26,6 +26,7 @@ import { RegistroMainComponent } from './registro/registro-main/registro-main.co
 import { AdministradoresComponent } from './registro/administradores/administradores.component';
 import { MenuComponent } from './paginas/menu/menu.component';
 import { SpinnerModule } from './shared/components/spinner/spinner.module';
+import { ButtonStyleDirective } from './directives/button-style.directive';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { SpinnerModule } from './shared/components/spinner/spinner.module';
     UsuariosComponent,
     RegistroMainComponent,
     AdministradoresComponent,
-    MenuComponent
+    MenuComponent,
+    ButtonStyleDirective
   ],
   imports: [
     BrowserModule,
