@@ -46,7 +46,7 @@ export class AuthService {
     }
   }
 
-  async logMeIn(email: string, password: string){
+  /*async logMeIn2(email: string, password: string){
     this.spinnerSvc.show();
     try {
       const user = await this.auth.signInWithEmailAndPassword(email, password);
@@ -54,23 +54,23 @@ export class AuthService {
         if(user.user?.uid){
           this.firebase.cargarUsuarios().valueChanges().subscribe(data => {
             data.forEach(usuario => {
-              if(usuario.email === email ){
-                if(usuario.tipo === "paciente"){
-                  this.saveLoginData(usuario);
-                  this.router.navigateByUrl('/');
-                }else if(usuario.tipo === "especialista"){
-                  if(usuario.habilitado === true && user.user?.emailVerified === true){
+                if(usuario.email === email ){
+                  if(usuario.tipo === "paciente"){
+                    this.saveLoginData(usuario);
+                    this.router.navigateByUrl('/');
+                  }else if(usuario.tipo === "especialista"){
+                    if(usuario.habilitado === true && user.user?.emailVerified === true){
+                      this.saveLoginData(usuario);
+                      this.router.navigateByUrl('/');
+                    }else{
+                      alert("No esta habilitado para ingresar");
+                    }
+                  }else if(usuario.tipo === "administrador"){
                     this.saveLoginData(usuario);
                     this.router.navigateByUrl('/');
                   }else{
-                    alert("No esta habilitado para ingresar")
+                    alert("Credenciales incorrectas");
                   }
-                }else if(usuario.tipo === "administrador"){
-                  this.saveLoginData(usuario);
-                  this.router.navigateByUrl('/');
-                }else{
-                  alert("Credenciales incorrectas");
-                }
                 
               }
             });
@@ -83,6 +83,99 @@ export class AuthService {
       alert(e.message);
     }
     this.spinnerSvc.hide();
+  }*/
+
+  verificarCredenciales(listadoUsuarios:Usuario[], email:string, password:string):boolean{
+    var usuarioExiste = false;
+    for (let index = 0; index < listadoUsuarios.length; index++) {
+      if(listadoUsuarios[index].email === email && listadoUsuarios[index].password === password){
+        usuarioExiste = true;
+        break;
+      }
+    }
+    return usuarioExiste;
+  }
+
+  verificarHabilitacion(listadoUsuarios:Usuario[], email:string, password:string):boolean{
+    var habilitado = false;
+    for (let index = 0; index < listadoUsuarios.length; index++) {
+      if(listadoUsuarios[index].email === email && listadoUsuarios[index].tipo === "especialista"){
+        habilitado = listadoUsuarios[index].habilitado;
+        break;
+      }
+    }
+    return habilitado;
+  }
+
+  verificarAdmin(listadoUsuarios:Usuario[], email:string, password:string):boolean{
+    var admin:boolean = false;
+    for (let index = 0; index < listadoUsuarios.length; index++) {
+      if(listadoUsuarios[index].email === email && listadoUsuarios[index].tipo === "administrador"){
+        admin = true
+        break;
+      }
+    }
+    return admin;
+  }
+
+  async verificicarMail(listadoUsuarios:Usuario[], email:string, password:string){
+    var mailVerificado = false;
+    await this.auth.signInWithEmailAndPassword(email, password).then((user) => {
+      if(user.user?.emailVerified === true){
+        //alert("Mail: " + email + " - Verified?: " + user.user?.emailVerified);
+        mailVerificado = true;
+      }
+      
+    }).finally(()=>{
+      this.auth.signOut();
+    });
+
+    return mailVerificado;
+  }
+
+
+  async logMeIn(listaUsuarios:Usuario[], email: string, password: string){
+    var habilitado!:boolean;
+    var verificado!:boolean;
+    var admin!:boolean;
+    this.spinnerSvc.show();
+
+    habilitado = this.verificarHabilitacion(listaUsuarios, email, password);
+    admin = this.verificarAdmin(listaUsuarios, email, password);
+
+    await this.verificicarMail(listaUsuarios, email, password).then((value) =>{
+      verificado = value;
+
+      if(admin){
+        this.logIn(listaUsuarios, email, password);
+        this.router.navigateByUrl('/');
+      }else{
+        if(verificado){
+          if(habilitado){
+            //alert("Mail verificado y habilitado!");
+            this.logIn(listaUsuarios, email, password);
+            this.router.navigateByUrl('/');
+          }else{
+            alert("Su email se encuentra verificado pero aun no ha sido aprobado por un administrador.");
+          }
+        }else{
+          alert("Debe verificar su cuenta de email para poder entrar");
+        }
+      }
+
+    })
+
+    this.spinnerSvc.hide();
+  }
+
+  logIn(listadoUsuarios:Usuario[], email: string, password: string){
+    for (let index = 0; index < listadoUsuarios.length; index++) {
+      if(listadoUsuarios[index].email === email){
+        this.auth.signInWithEmailAndPassword(email, password);
+        this.saveLoginData(listadoUsuarios[index]);
+        break;
+      }
+    }
   }
 
   logOut(){

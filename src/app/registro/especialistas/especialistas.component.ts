@@ -20,6 +20,7 @@ export class EspecialistasComponent implements OnInit {
   public especialidades!:Especialidad[];
 
   constructor(private fb:FormBuilder, private firebase:FirebaseService, private captcha:CaptchaService, private firestorage: AngularFireStorage, private auth:AuthService) {
+    this.especialidades = [];
   }
 
   ngOnInit(): void {
@@ -59,8 +60,12 @@ export class EspecialistasComponent implements OnInit {
     })
 
     this.firebase.cargarEspecialidades().valueChanges().subscribe(data => {
-      this.especialidades = data;
-      //console.log(this.especialidades);
+      data.forEach(especialidad => {
+        if(especialidad.aprobada === true)
+        this.especialidades.push(especialidad);
+      });
+      //this.especialidades = data;
+      console.log(this.especialidades);
     })
   }
 
