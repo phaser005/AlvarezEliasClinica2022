@@ -62,7 +62,7 @@
             <li class="nav-item" *ngIf="verificarUsuario() === 'administrador' ">
                 <a class="nav-link active" aria-current="page" href="/usuarios">Usuarios</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" *ngIf="logInVerification()">
                 <a class="nav-link active" aria-current="page" href="/mi-perfil">Mi perfil</a>
             </li>
             <li class="nav-item" *ngIf="verificarUsuario() === 'administrador' ||  verificarUsuario() === 'paciente'">
@@ -75,7 +75,7 @@
                 <a class="nav-link active" aria-current="page" href="/turnos/turnos">Turnos</a>
             </li>
           
-          <li class="nav-item dropdown">
+          <!--li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle btn btn-outline-secondary me-2" href="#" id="dropdown03" data-bs-toggle="dropdown" aria-expanded="false">Registrarse</a>
             <ul class="dropdown-menu" aria-labelledby="dropdown03">
               <li><a class="dropdown-item" href="/alta-paciente">Como Paciente</a></li>
@@ -83,7 +83,7 @@
               <li><a *ngIf="verificarUsuario() === 'administrador' "
                 class="dropdown-item" href="/alta-administrador">Como Administrador</a></li>
             </ul>
-          </li>
+          </li-->
         </ul>
       <form class="d-flex" *ngIf="logInVerification() === false">
         <a class="btn btn-outline-primary me-2" routerLink='/login' role="button">Iniciar Sesión</a>
