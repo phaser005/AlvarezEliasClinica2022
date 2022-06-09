@@ -107,7 +107,7 @@ export class AuthService {
     return habilitado;
   }
 
-  verificarAdmin(listadoUsuarios:Usuario[], email:string, password:string):boolean{
+  verificarAdmin(listadoUsuarios:Usuario[], email:string):boolean{
     var admin:boolean = false;
     for (let index = 0; index < listadoUsuarios.length; index++) {
       if(listadoUsuarios[index].email === email && listadoUsuarios[index].tipo === "administrador"){
@@ -116,6 +116,17 @@ export class AuthService {
       }
     }
     return admin;
+  }
+
+  verificarPaciente(listadoUsuarios:Usuario[], email:string):boolean{
+    var paciente:boolean = false;
+    for (let index = 0; index < listadoUsuarios.length; index++) {
+      if(listadoUsuarios[index].email === email && listadoUsuarios[index].tipo === "paciente"){
+        paciente = true
+        break;
+      }
+    }
+    return paciente;
   }
 
   async verificicarMail(listadoUsuarios:Usuario[], email:string, password:string){
@@ -138,10 +149,12 @@ export class AuthService {
     var habilitado!:boolean;
     var verificado!:boolean;
     var admin!:boolean;
+    var paciente!:boolean;
     this.spinnerSvc.show();
 
     habilitado = this.verificarHabilitacion(listaUsuarios, email, password);
-    admin = this.verificarAdmin(listaUsuarios, email, password);
+    admin = this.verificarAdmin(listaUsuarios, email);
+    paciente = this.verificarPaciente(listaUsuarios, email);
 
     await this.verificicarMail(listaUsuarios, email, password).then((value) =>{
       verificado = value;
@@ -151,12 +164,18 @@ export class AuthService {
         this.router.navigateByUrl('/');
       }else{
         if(verificado){
-          if(habilitado){
-            //alert("Mail verificado y habilitado!");
+
+          if(paciente){
             this.logIn(listaUsuarios, email, password);
             this.router.navigateByUrl('/');
           }else{
-            alert("Su email se encuentra verificado pero aun no ha sido aprobado por un administrador.");
+            if(habilitado){
+              //alert("Mail verificado y habilitado!");
+              this.logIn(listaUsuarios, email, password);
+              this.router.navigateByUrl('/');
+            }else{
+              alert("Su email se encuentra verificado pero aun no ha sido aprobado por un administrador.");
+            }
           }
         }else{
           alert("Debe verificar su cuenta de email para poder entrar");
