@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Usuario } from '../../clases/usuario';
+import { AuthService } from '../../servicios/auth.service';
 
 @Component({
   selector: 'app-mi-perfil',
@@ -7,9 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MiPerfilComponent implements OnInit {
 
-  constructor() { }
+  public myInfo!:Usuario;
+
+  constructor(private auth:AuthService) { }
 
   ngOnInit(): void {
+    this.myInfo = this.auth.loadLoginData();
   }
 
 }

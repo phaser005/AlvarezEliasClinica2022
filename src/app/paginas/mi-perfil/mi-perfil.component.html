@@ -1,1 +1,40 @@
-<p>mi-perfil works!</p>
+<div align="center">
+    <br>
+    <h2>Informacion personal</h2>
+    <br>
+</div>
+<div name="Personal Information">
+    <div style="overflow-x:auto;">
+        <table>
+          <tr>
+            <th>DNI</th>
+            <th>Apellido</th>
+            <th>Nombre</th>
+            <th *ngIf="myInfo.tipo === 'paciente'">Obra Social</th>
+            <th>Edad</th>
+            <th>Email</th>
+            <th *ngIf="myInfo.tipo === 'especialista'">Especialidad/es</th>
+            <th>Imagen de perfil</th>
+            <th *ngIf="myInfo.tipo === 'paciente'">Imagen de perfil 2</th>
+    
+          </tr>
+          <tr>
+            <td>{{myInfo.DNI}}</td>
+            <td>{{myInfo.apellido}}</td>
+            <td>{{myInfo.nombre}}</td>
+            <td *ngIf="myInfo.tipo === 'paciente'">{{myInfo.obraSocial}}</td>
+            <td>{{myInfo.edad}}</td>
+            <td>{{myInfo.email}}</td>
+            <td *ngIf="myInfo.tipo === 'especialista'">{{myInfo.especialidad}}</td>
+            <td>
+                <img src="{{myInfo.imagen1}}" alt="" width="50px" height="50px">
+            </td>
+            <td *ngIf="myInfo.tipo === 'paciente'">
+                <img src="{{myInfo.imagen2}}" alt="" width="50px" height="50px">
+            </td>
+
+    
+          </tr>
+        </table>
+    </div>
+</div>

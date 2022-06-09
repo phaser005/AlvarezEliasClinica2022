@@ -99,6 +99,33 @@ SpinnerComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineC
 
 /***/ }),
 
+/***/ "5dIn":
+/*!**********************************************************!*\
+  !*** ./src/app/paginas/mi-perfil/mi-perfil.component.ts ***!
+  \**********************************************************/
+/*! exports provided: MiPerfilComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MiPerfilComponent", function() { return MiPerfilComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "fXoL");
+
+class MiPerfilComponent {
+    constructor() { }
+    ngOnInit() {
+    }
+}
+MiPerfilComponent.ɵfac = function MiPerfilComponent_Factory(t) { return new (t || MiPerfilComponent)(); };
+MiPerfilComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: MiPerfilComponent, selectors: [["app-mi-perfil"]], decls: 2, vars: 0, template: function MiPerfilComponent_Template(rf, ctx) { if (rf & 1) {
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "p");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](1, "mi-perfil works!");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+    } }, styles: ["\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJtaS1wZXJmaWwuY29tcG9uZW50LmNzcyJ9 */"] });
+
+
+/***/ }),
+
 /***/ "AytR":
 /*!*****************************************!*\
   !*** ./src/environments/environment.ts ***!
@@ -123,6 +150,33 @@ const environment = {
  * on performance if an error is thrown.
  */
 // import 'zone.js/dist/zone-error';  // Included with Angular CLI.
+
+
+/***/ }),
+
+/***/ "Bu+M":
+/*!************************************************************!*\
+  !*** ./src/app/paginas/mis-turnos/mis-turnos.component.ts ***!
+  \************************************************************/
+/*! exports provided: MisTurnosComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MisTurnosComponent", function() { return MisTurnosComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "fXoL");
+
+class MisTurnosComponent {
+    constructor() { }
+    ngOnInit() {
+    }
+}
+MisTurnosComponent.ɵfac = function MisTurnosComponent_Factory(t) { return new (t || MisTurnosComponent)(); };
+MisTurnosComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: MisTurnosComponent, selectors: [["app-mis-turnos"]], decls: 2, vars: 0, template: function MisTurnosComponent_Template(rf, ctx) { if (rf & 1) {
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "p");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](1, "mis-turnos works!");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+    } }, styles: ["\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJtaXMtdHVybm9zLmNvbXBvbmVudC5jc3MifQ== */"] });
 
 
 /***/ }),
@@ -253,7 +307,7 @@ class AuthService {
         }
         return habilitado;
     }
-    verificarAdmin(listadoUsuarios, email, password) {
+    verificarAdmin(listadoUsuarios, email) {
         var admin = false;
         for (let index = 0; index < listadoUsuarios.length; index++) {
             if (listadoUsuarios[index].email === email && listadoUsuarios[index].tipo === "administrador") {
@@ -262,6 +316,16 @@ class AuthService {
             }
         }
         return admin;
+    }
+    verificarPaciente(listadoUsuarios, email) {
+        var paciente = false;
+        for (let index = 0; index < listadoUsuarios.length; index++) {
+            if (listadoUsuarios[index].email === email && listadoUsuarios[index].tipo === "paciente") {
+                paciente = true;
+                break;
+            }
+        }
+        return paciente;
     }
     verificicarMail(listadoUsuarios, email, password) {
         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
@@ -283,9 +347,11 @@ class AuthService {
             var habilitado;
             var verificado;
             var admin;
+            var paciente;
             this.spinnerSvc.show();
             habilitado = this.verificarHabilitacion(listaUsuarios, email, password);
-            admin = this.verificarAdmin(listaUsuarios, email, password);
+            admin = this.verificarAdmin(listaUsuarios, email);
+            paciente = this.verificarPaciente(listaUsuarios, email);
             yield this.verificicarMail(listaUsuarios, email, password).then((value) => {
                 verificado = value;
                 if (admin) {
@@ -294,13 +360,19 @@ class AuthService {
                 }
                 else {
                     if (verificado) {
-                        if (habilitado) {
-                            //alert("Mail verificado y habilitado!");
+                        if (paciente) {
                             this.logIn(listaUsuarios, email, password);
                             this.router.navigateByUrl('/');
                         }
                         else {
-                            alert("Su email se encuentra verificado pero aun no ha sido aprobado por un administrador.");
+                            if (habilitado) {
+                                //alert("Mail verificado y habilitado!");
+                                this.logIn(listaUsuarios, email, password);
+                                this.router.navigateByUrl('/');
+                            }
+                            else {
+                                alert("Su email se encuentra verificado pero aun no ha sido aprobado por un administrador.");
+                            }
                         }
                     }
                     else {
@@ -390,6 +462,33 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Especialidad", function() { return Especialidad; });
 class Especialidad {
 }
+
+
+/***/ }),
+
+/***/ "LH+C":
+/*!****************************************************!*\
+  !*** ./src/app/paginas/turnos/turnos.component.ts ***!
+  \****************************************************/
+/*! exports provided: TurnosComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TurnosComponent", function() { return TurnosComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "fXoL");
+
+class TurnosComponent {
+    constructor() { }
+    ngOnInit() {
+    }
+}
+TurnosComponent.ɵfac = function TurnosComponent_Factory(t) { return new (t || TurnosComponent)(); };
+TurnosComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: TurnosComponent, selectors: [["app-turnos"]], decls: 2, vars: 0, template: function TurnosComponent_Template(rf, ctx) { if (rf & 1) {
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "p");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](1, "turnos works!");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+    } }, styles: ["\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJ0dXJub3MuY29tcG9uZW50LmNzcyJ9 */"] });
 
 
 /***/ }),
@@ -1364,6 +1463,33 @@ UsuariosComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefine
 
 /***/ }),
 
+/***/ "W+Vm":
+/*!**********************************************************************!*\
+  !*** ./src/app/paginas/solicitar-turno/solicitar-turno.component.ts ***!
+  \**********************************************************************/
+/*! exports provided: SolicitarTurnoComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SolicitarTurnoComponent", function() { return SolicitarTurnoComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "fXoL");
+
+class SolicitarTurnoComponent {
+    constructor() { }
+    ngOnInit() {
+    }
+}
+SolicitarTurnoComponent.ɵfac = function SolicitarTurnoComponent_Factory(t) { return new (t || SolicitarTurnoComponent)(); };
+SolicitarTurnoComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: SolicitarTurnoComponent, selectors: [["app-solicitar-turno"]], decls: 2, vars: 0, template: function SolicitarTurnoComponent_Template(rf, ctx) { if (rf & 1) {
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "p");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](1, "solicitar-turno works!");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+    } }, styles: ["\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzb2xpY2l0YXItdHVybm8uY29tcG9uZW50LmNzcyJ9 */"] });
+
+
+/***/ }),
+
 /***/ "WsNZ":
 /*!*************************************************************!*\
   !*** ./src/app/shared/components/spinner/spinner.module.ts ***!
@@ -1423,7 +1549,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _paginas_menu_menu_component__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./paginas/menu/menu.component */ "UCSW");
 /* harmony import */ var _shared_components_spinner_spinner_module__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./shared/components/spinner/spinner.module */ "WsNZ");
 /* harmony import */ var _directives_button_style_directive__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./directives/button-style.directive */ "259x");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! @angular/core */ "fXoL");
+/* harmony import */ var _paginas_mis_turnos_mis_turnos_component__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./paginas/mis-turnos/mis-turnos.component */ "Bu+M");
+/* harmony import */ var _paginas_turnos_turnos_component__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./paginas/turnos/turnos.component */ "LH+C");
+/* harmony import */ var _paginas_solicitar_turno_solicitar_turno_component__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./paginas/solicitar-turno/solicitar-turno.component */ "W+Vm");
+/* harmony import */ var _paginas_mi_perfil_mi_perfil_component__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./paginas/mi-perfil/mi-perfil.component */ "5dIn");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! @angular/core */ "fXoL");
 
 
 //FIREBASE IMPORTS//
@@ -1450,11 +1580,15 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
+
 class AppModule {
 }
 AppModule.ɵfac = function AppModule_Factory(t) { return new (t || AppModule)(); };
-AppModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_21__["ɵɵdefineNgModule"]({ type: AppModule, bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_10__["AppComponent"]] });
-AppModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_21__["ɵɵdefineInjector"]({ providers: [
+AppModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_25__["ɵɵdefineNgModule"]({ type: AppModule, bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_10__["AppComponent"]] });
+AppModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_25__["ɵɵdefineInjector"]({ providers: [
     //{provide: HTTP_INTERCEPTORS, useClass: SpinnerInterceptor, multi: true}
     ], imports: [[
             _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"],
@@ -1469,7 +1603,7 @@ AppModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_21__["ɵɵdefineInjecto
             _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClientModule"],
             _shared_components_spinner_spinner_module__WEBPACK_IMPORTED_MODULE_19__["SpinnerModule"]
         ]] });
-(function () { (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_21__["ɵɵsetNgModuleScope"](AppModule, { declarations: [_app_component__WEBPACK_IMPORTED_MODULE_10__["AppComponent"],
+(function () { (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_25__["ɵɵsetNgModuleScope"](AppModule, { declarations: [_app_component__WEBPACK_IMPORTED_MODULE_10__["AppComponent"],
         _paginas_bienvenida_bienvenida_component__WEBPACK_IMPORTED_MODULE_11__["BienvenidaComponent"],
         _registro_pacientes_pacientes_component__WEBPACK_IMPORTED_MODULE_12__["PacientesComponent"],
         _registro_especialistas_especialistas_component__WEBPACK_IMPORTED_MODULE_13__["EspecialistasComponent"],
@@ -1478,7 +1612,11 @@ AppModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_21__["ɵɵdefineInjecto
         _registro_registro_main_registro_main_component__WEBPACK_IMPORTED_MODULE_16__["RegistroMainComponent"],
         _registro_administradores_administradores_component__WEBPACK_IMPORTED_MODULE_17__["AdministradoresComponent"],
         _paginas_menu_menu_component__WEBPACK_IMPORTED_MODULE_18__["MenuComponent"],
-        _directives_button_style_directive__WEBPACK_IMPORTED_MODULE_20__["ButtonStyleDirective"]], imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"],
+        _directives_button_style_directive__WEBPACK_IMPORTED_MODULE_20__["ButtonStyleDirective"],
+        _paginas_mis_turnos_mis_turnos_component__WEBPACK_IMPORTED_MODULE_21__["MisTurnosComponent"],
+        _paginas_turnos_turnos_component__WEBPACK_IMPORTED_MODULE_22__["TurnosComponent"],
+        _paginas_solicitar_turno_solicitar_turno_component__WEBPACK_IMPORTED_MODULE_23__["SolicitarTurnoComponent"],
+        _paginas_mi_perfil_mi_perfil_component__WEBPACK_IMPORTED_MODULE_24__["MiPerfilComponent"]], imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"],
         _app_routing_module__WEBPACK_IMPORTED_MODULE_9__["AppRoutingModule"],
         _angular_forms__WEBPACK_IMPORTED_MODULE_7__["FormsModule"],
         _angular_forms__WEBPACK_IMPORTED_MODULE_7__["ReactiveFormsModule"], _angular_fire__WEBPACK_IMPORTED_MODULE_2__["AngularFireModule"], _angular_fire_firestore__WEBPACK_IMPORTED_MODULE_3__["AngularFirestoreModule"],
@@ -2278,11 +2416,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/router */ "tyNb");
 /* harmony import */ var _paginas_bienvenida_bienvenida_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./paginas/bienvenida/bienvenida.component */ "NmMH");
 /* harmony import */ var _paginas_login_login_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./paginas/login/login.component */ "S7Qj");
-/* harmony import */ var _paginas_usuarios_usuarios_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./paginas/usuarios/usuarios.component */ "UjxR");
-/* harmony import */ var _registro_administradores_administradores_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./registro/administradores/administradores.component */ "rMQq");
-/* harmony import */ var _registro_especialistas_especialistas_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./registro/especialistas/especialistas.component */ "RakD");
-/* harmony import */ var _registro_pacientes_pacientes_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./registro/pacientes/pacientes.component */ "fdgF");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/core */ "fXoL");
+/* harmony import */ var _paginas_mi_perfil_mi_perfil_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./paginas/mi-perfil/mi-perfil.component */ "5dIn");
+/* harmony import */ var _paginas_usuarios_usuarios_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./paginas/usuarios/usuarios.component */ "UjxR");
+/* harmony import */ var _registro_administradores_administradores_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./registro/administradores/administradores.component */ "rMQq");
+/* harmony import */ var _registro_especialistas_especialistas_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./registro/especialistas/especialistas.component */ "RakD");
+/* harmony import */ var _registro_pacientes_pacientes_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./registro/pacientes/pacientes.component */ "fdgF");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/core */ "fXoL");
+
 
 
 
@@ -2302,27 +2442,31 @@ const routes = [
     },
     {
         path: 'alta-paciente',
-        component: _registro_pacientes_pacientes_component__WEBPACK_IMPORTED_MODULE_6__["PacientesComponent"]
+        component: _registro_pacientes_pacientes_component__WEBPACK_IMPORTED_MODULE_7__["PacientesComponent"]
     },
     {
         path: 'alta-especialista',
-        component: _registro_especialistas_especialistas_component__WEBPACK_IMPORTED_MODULE_5__["EspecialistasComponent"]
+        component: _registro_especialistas_especialistas_component__WEBPACK_IMPORTED_MODULE_6__["EspecialistasComponent"]
     },
     {
         path: 'alta-administrador',
-        component: _registro_administradores_administradores_component__WEBPACK_IMPORTED_MODULE_4__["AdministradoresComponent"]
+        component: _registro_administradores_administradores_component__WEBPACK_IMPORTED_MODULE_5__["AdministradoresComponent"]
     },
     {
         path: 'usuarios',
-        component: _paginas_usuarios_usuarios_component__WEBPACK_IMPORTED_MODULE_3__["UsuariosComponent"]
+        component: _paginas_usuarios_usuarios_component__WEBPACK_IMPORTED_MODULE_4__["UsuariosComponent"]
+    },
+    {
+        path: 'mi-perfil',
+        component: _paginas_mi_perfil_mi_perfil_component__WEBPACK_IMPORTED_MODULE_3__["MiPerfilComponent"]
     },
 ];
 class AppRoutingModule {
 }
 AppRoutingModule.ɵfac = function AppRoutingModule_Factory(t) { return new (t || AppRoutingModule)(); };
-AppRoutingModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_7__["ɵɵdefineNgModule"]({ type: AppRoutingModule });
-AppRoutingModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_7__["ɵɵdefineInjector"]({ imports: [[_angular_router__WEBPACK_IMPORTED_MODULE_0__["RouterModule"].forRoot(routes)], _angular_router__WEBPACK_IMPORTED_MODULE_0__["RouterModule"]] });
-(function () { (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_7__["ɵɵsetNgModuleScope"](AppRoutingModule, { imports: [_angular_router__WEBPACK_IMPORTED_MODULE_0__["RouterModule"]], exports: [_angular_router__WEBPACK_IMPORTED_MODULE_0__["RouterModule"]] }); })();
+AppRoutingModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵdefineNgModule"]({ type: AppRoutingModule });
+AppRoutingModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵdefineInjector"]({ imports: [[_angular_router__WEBPACK_IMPORTED_MODULE_0__["RouterModule"].forRoot(routes)], _angular_router__WEBPACK_IMPORTED_MODULE_0__["RouterModule"]] });
+(function () { (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵsetNgModuleScope"](AppRoutingModule, { imports: [_angular_router__WEBPACK_IMPORTED_MODULE_0__["RouterModule"]], exports: [_angular_router__WEBPACK_IMPORTED_MODULE_0__["RouterModule"]] }); })();
 
 
 /***/ }),

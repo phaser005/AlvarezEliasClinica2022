@@ -1,33 +1,69 @@
-<h2 align="center"> Listado de usuarios registrados</h2>
-
+<br>
+<h3 align="center"> Listado de usuarios registrados</h3>
+<br>
 <div align="center">
     <a class="btn btn-outline-primary me-2" routerLink='/alta-administrador' role="button">Crear nuevo Administrador</a>
 </div>
 <br>
+
 <div class="scroll" align="center">
-    <div *ngFor="let usuario of listaUsuarios">
-        <p>Tipo: {{usuario.tipo}}</p>
-        <p>Nombre: {{usuario.nombre}}</p>
-        <p>Apellido: {{usuario.apellido}}</p>
-        <p>DNI: {{usuario.DNI}}</p>
-        <p>Obra Social: {{usuario.obraSocial}}</p>
-        <p>Especialidad: {{usuario.especialidad}}</p>
-        <p>Email: {{usuario.email}}</p>
-        <p>Password: {{usuario.password}}</p>
-        <img src={{usuario.imagen1}} width="10%">
-        <div *ngIf="usuario.tipo === 'paciente'">
-            <img src={{usuario.imagen2}} width="10%">
-        </div>
-        <p>Esta habilitado: {{usuario.habilitado}}</p>
-        <div *ngIf="usuario.tipo === 'especialista'">
-            <div *ngIf="usuario.habilitado === true">
-                <button (click)="deshabilitarUsuario(usuario.email)">DESAHABILITAR</button>
-            </div>
-            <div *ngIf="usuario.habilitado === false">
-                <button (click)="habilitarUsuario(usuario.email)">HABILITAR</button>
-            </div>
-        </div>
-        <hr>
-        <hr>
+    <div style="overflow-x:auto;">
+        <table>
+          <tr>
+            <th>DNI</th>
+            <th>Apellido</th>
+            <th>Nombre</th>
+            <th>Obra Social</th>
+            <th>Edad</th>
+            <th>Email</th>
+            <th>Especialidad/es</th>
+            <th>Imagen de perfil</th>
+            <th>Imagen de perfil 2</th>
+            <th>Esta Habilitado</th>
+    
+          </tr>
+          <tr *ngFor="let usuario of listaUsuarios">
+            <td>{{usuario.DNI}}</td>
+            <td>{{usuario.apellido}}</td>
+            <td>{{usuario.nombre}}</td>
+            <td *ngIf="usuario.tipo === 'paciente'; else noPaciente">{{usuario.obraSocial}}</td>
+            <ng-template #noPaciente>
+                <td>No es Paciente</td>
+            </ng-template>
+            <td>{{usuario.edad}}</td>
+            <td>{{usuario.email}}</td>
+            <td *ngIf="usuario.tipo === 'especialista'; else noEspecialista">{{usuario.especialidad}}</td>
+            <ng-template #noEspecialista>
+                <td>No es Especialista</td>
+            </ng-template>
+            <td>
+                <img src="{{usuario.imagen1}}" alt="" width="50px" height="50px">
+            </td>
+            <td *ngIf="usuario.tipo === 'paciente'; else noPacienteImg">
+                <img src="{{usuario.imagen2}}" alt="" width="50px" height="50px">
+            </td>
+            <ng-template #noPacienteImg>
+                <td><h1>X</h1></td>
+            </ng-template>
+                <div *ngIf="usuario.tipo === 'especialista'; else especialistaHabilitado ">
+                    <td>
+                        <div *ngIf="usuario.habilitado === true">
+                            <p>SI</p>
+                            <button (click)="deshabilitarUsuario(usuario.email)">DESAHABILITAR</button>
+                        </div>
+                        <div *ngIf="usuario.habilitado === false">
+                            <p>NO</p><button (click)="habilitarUsuario(usuario.email)">HABILITAR</button>
+                        </div>
+                    </td>
+                </div>
+                <ng-template #especialistaHabilitado>
+                    <td>SI</td>
+                </ng-template>
+                
+
+
+    
+          </tr>
+        </table>
     </div>
 </div>
