@@ -7,11 +7,11 @@ import { PacientesComponent } from '../../registro/pacientes/pacientes.component
 const routes: Routes = [
   { 
     path: 'paciente', 
-    component: PacientesComponent
+    component: PacientesComponent  
   },
   { 
     path: 'especialista', 
-    component: EspecialistasComponent 
+    component: EspecialistasComponent
   },
   { 
     path: 'administrador', 

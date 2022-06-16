@@ -8,25 +8,30 @@ import { UsuariosComponent } from './paginas/usuarios/usuarios.component';
 
 const routes: Routes = [
   { path: '', 
-  component: BienvenidaComponent 
+  component: BienvenidaComponent, 
+  data: {animation: 'stepper'}  
   },
   { 
     path: 'login', 
-    component: LoginComponent 
+    component: LoginComponent,
+    data: {animation: 'fader'} 
   },
   { 
     path: 'usuarios', 
-    component: UsuariosComponent 
+    component: UsuariosComponent,
+    data: {animation: 'stepper'} 
   },
   { 
     path: 'mi-perfil', 
-    component: MiPerfilComponent 
+    component: MiPerfilComponent,
+    data: {animation: 'stepper'} 
   },
   { 
     path: 'solicitar-turno', 
     component: SolicitarTurnoComponent 
   },
-  { path: 'registro', loadChildren: () => import('./lazyLoad/registro/registro-routing.module').then(m => m.RegistroRoutingModule) }
+  { path: 'registro', loadChildren: () => import('./lazyLoad/registro/registro-routing.module').then(m => m.RegistroRoutingModule)
+  }
 
 ];
 
