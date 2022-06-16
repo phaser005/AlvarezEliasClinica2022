@@ -3,13 +3,14 @@
 <br>
 <div align="center">
     <a class="btn btn-outline-primary me-2" routerLink='/registro/administrador' role="button">Crear nuevo Administrador</a>
-    <a class="btn btn-outline-primary me-2"  style="margin-right: 10px;" role="button" (click)="generateExcel()">Exportar a Excel</a>
+    <a class="btn btn-outline-primary me-2"  *ngIf="listaUsuarios[0]"
+    style="margin-right: 10px;" role="button" (click)="generateExcel()">Exportar a Excel</a>
 </div>
 <br>
 
 <div class="scroll" align="center">
     <div style="overflow-x:auto;">
-        <table>
+        <table id = "excel-table">
           <tr>
             <th>DNI</th>
             <th>Apellido</th>

@@ -30,7 +30,9 @@ export class UsuariosComponent implements OnInit {
   }
 
   generateExcel(){
-    this.excelGenerator.exportToExcel(this.listaUsuarios, 'Listado de Usuarios');
+    let x = document.getElementById('excel-table');
+    //this.excelGenerator.exportToExcel(this.listaUsuarios, 'Listado de Usuarios');
+    this.excelGenerator.exportExcel(x, "Listado de usuarios.xlsx");
   }
 
 }
