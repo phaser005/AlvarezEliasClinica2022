@@ -33,7 +33,8 @@ export class PacientesComponent implements OnInit {
       ]],
       'edad': ['', [
         Validators.required,
-        Validators.min(18)
+        Validators.min(18),
+        Validators.pattern("^[0-9]*")
       ]],
       'dni': ['', [
       Validators.required,
@@ -81,8 +82,8 @@ export class PacientesComponent implements OnInit {
 
     nuevoUsuario.nombre = this.pacienteForm.get("nombre")?.value;
     nuevoUsuario.apellido = this.pacienteForm.get("apellido")?.value;
-    nuevoUsuario.edad = this.pacienteForm.get("edad")?.value;
-    nuevoUsuario.DNI = this.pacienteForm.get("dni")?.value;
+    nuevoUsuario.edad = Number(this.pacienteForm.get("edad")?.value);
+    nuevoUsuario.DNI = Number(this.pacienteForm.get("dni")?.value);
     nuevoUsuario.obraSocial = this.pacienteForm.get("obraSocial")?.value;
     nuevoUsuario.email = this.pacienteForm.get("email")?.value;
     nuevoUsuario.password = this.pacienteForm.get("password")?.value;

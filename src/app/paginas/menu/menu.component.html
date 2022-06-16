@@ -66,7 +66,7 @@
                 <a class="nav-link active" aria-current="page" href="/mi-perfil">Mi perfil</a>
             </li>
             <li class="nav-item" *ngIf="verificarUsuario() === 'administrador' ||  verificarUsuario() === 'paciente'">
-                <a class="nav-link active" aria-current="page" href="turnos/solicitar-turno">Solicitar Turno</a>
+                <a class="nav-link active" aria-current="page" href="/solicitar-turno">Solicitar Turno</a>
             </li>
             <li class="nav-item" *ngIf="verificarUsuario() === 'paciente' ||  verificarUsuario() === 'especialista'">
                 <a class="nav-link active" aria-current="page" href="turnos/mis-turnos">Mis Turnos</a>

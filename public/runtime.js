@@ -64,7 +64,7 @@
 /******/
 /******/ 	// script path function
 /******/ 	function jsonpScriptSrc(chunkId) {
-/******/ 		return __webpack_require__.p + "" + ({"firebase-auth":"firebase-auth"}[chunkId]||chunkId) + ".js"
+/******/ 		return __webpack_require__.p + "" + ({"firebase-auth":"firebase-auth","lazyLoad-registro-registro-routing-module":"lazyLoad-registro-registro-routing-module"}[chunkId]||chunkId) + ".js"
 /******/ 	}
 /******/
 /******/ 	// The require function

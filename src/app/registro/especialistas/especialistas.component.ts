@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators, ValidationErrors, AbstractControl } from '@angular/forms';
 import { FirebaseService } from '../../servicios/firebase.service'
 import { AuthService } from '../../servicios/auth.service'
@@ -38,7 +38,8 @@ export class EspecialistasComponent implements OnInit {
       ]],
       'edad': ['', [
         Validators.required,
-        Validators.min(18)
+        Validators.min(18),
+        Validators.pattern("^[0-9]*")
       ]],
       'dni': ['', [
         Validators.required,
@@ -46,8 +47,9 @@ export class EspecialistasComponent implements OnInit {
         Validators.maxLength(8),
         Validators.pattern("^[0-9]*")
       ]],
-      'especialidad': ['', Validators.required],
+      'especialidad': [''],
       'especialidadEscrita': [''],
+      'checkbox':[''],
       'email': ['', [
         Validators.required, 
         Validators.email
@@ -78,6 +80,17 @@ export class EspecialistasComponent implements OnInit {
     this.especialistaForm.controls['especialidadEscrita'].setValue(e.target.value);
   }
 
+  tomarEspecialidades():string[]{
+    var result:string[] = [];
+    for (let index = 0; index < this.especialidades.length; index++) {
+      if((<HTMLInputElement>document.getElementById(index.toString())).checked){
+        result.push((<HTMLInputElement>document.getElementById(index.toString())).value);
+      }
+    }
+    console.log(result);
+    return result;
+  }
+
   async enviar(){
 
     if(this.captcha.checkCaptcha()){
@@ -92,21 +105,19 @@ export class EspecialistasComponent implements OnInit {
 
   async createUser(){
     var nuevoUsuario = new Usuario();
-
-    var especialidadLista = this.especialistaForm.get('especialidad')?.value
     var especialidadEscrita = this.especialistaForm.get("especialidadEscrita")?.value
 
     nuevoUsuario.nombre = this.especialistaForm.get("nombre")?.value;
     nuevoUsuario.apellido = this.especialistaForm.get("apellido")?.value;
-    nuevoUsuario.edad = this.especialistaForm.get("edad")?.value;
-    nuevoUsuario.DNI = this.especialistaForm.get("dni")?.value;
-    nuevoUsuario.especialidad = especialidadEscrita;
+    nuevoUsuario.edad = Number(this.especialistaForm.get("edad")?.value);
+    nuevoUsuario.DNI = Number(this.especialistaForm.get("dni")?.value);
+    nuevoUsuario.especialidad = this.tomarEspecialidades();
     nuevoUsuario.email = this.especialistaForm.get("email")?.value;
     nuevoUsuario.password = this.especialistaForm.get("password")?.value;
     nuevoUsuario.tipo = "especialista"
     nuevoUsuario.habilitado = false;
 
-    if( especialidadLista != especialidadEscrita ){
+    if(especialidadEscrita != ""){
       var nuevaEspecialidad:Especialidad = new Especialidad()
       nuevaEspecialidad.aprobada = false;
       nuevaEspecialidad.imagen = "";

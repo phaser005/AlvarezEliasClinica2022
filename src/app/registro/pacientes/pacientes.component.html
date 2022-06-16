@@ -31,8 +31,12 @@
 
             <div class="col-md-6 mb-3">
                 <label for="edad" class="form-label">Edad</label>
-                <input type="number" class="form-control" id="edad" placeholder="Ingrese su edad" formControlName="edad">
+                <input type="text" class="form-control" id="edad" placeholder="Ingrese su edad" formControlName="edad">
                 <small class="invalid" *ngIf="pacienteForm.controls.edad.errors?.min || pacienteForm.controls.edad.errors?.max && pacienteForm.controls.edad.touched ">Debe ser mayor de 18 años</small>
+                <small class="invalid" *ngIf="pacienteForm.controls.edad.errors?.required && pacienteForm.controls.edad.touched">Este campo no puede quedar vacio</small>
+                <small class="invalid" *ngIf="pacienteForm.controls.edad.errors?.pattern">
+                    La edad no puede contener letras
+                </small>
             </div>
 
             <div class="col-md-6 mb-3">

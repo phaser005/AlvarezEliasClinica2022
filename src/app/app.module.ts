@@ -2,6 +2,9 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
+//BROWSER ANIMATIONS
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 //FIREBASE IMPORTS//
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
@@ -13,8 +16,8 @@ import { environment } from '../environments/environment.prod'
 
 //FORM IMPORTS//
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+//COMPONENTS
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BienvenidaComponent } from './paginas/bienvenida/bienvenida.component';
@@ -31,6 +34,7 @@ import { MisTurnosComponent } from './paginas/mis-turnos/mis-turnos.component';
 import { TurnosComponent } from './paginas/turnos/turnos.component';
 import { SolicitarTurnoComponent } from './paginas/solicitar-turno/solicitar-turno.component';
 import { MiPerfilComponent } from './paginas/mi-perfil/mi-perfil.component';
+import { ExcelGeneratorService } from './servicios/excel-generator.service';
 
 @NgModule({
   declarations: [
@@ -47,7 +51,7 @@ import { MiPerfilComponent } from './paginas/mi-perfil/mi-perfil.component';
     MisTurnosComponent,
     TurnosComponent,
     SolicitarTurnoComponent,
-    MiPerfilComponent
+    MiPerfilComponent,
   ],
   imports: [
     BrowserModule,
@@ -64,6 +68,7 @@ import { MiPerfilComponent } from './paginas/mi-perfil/mi-perfil.component';
   ],
   providers: [
     //{provide: HTTP_INTERCEPTORS, useClass: SpinnerInterceptor, multi: true}
+    ExcelGeneratorService,
   ],
   bootstrap: [AppComponent]
 })

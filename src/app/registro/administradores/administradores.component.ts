@@ -33,7 +33,8 @@ export class AdministradoresComponent implements OnInit {
       ]],
       'edad': ['', [
         Validators.required,
-        Validators.min(18)
+        Validators.min(18),
+        Validators.pattern("^[0-9]*")
       ]],
       'dni': ['', [
         Validators.required,
@@ -75,8 +76,8 @@ export class AdministradoresComponent implements OnInit {
 
     nuevoUsuario.nombre = this.administradorForm.get("nombre")?.value;
     nuevoUsuario.apellido = this.administradorForm.get("apellido")?.value;
-    nuevoUsuario.edad = this.administradorForm.get("edad")?.value;
-    nuevoUsuario.DNI = this.administradorForm.get("dni")?.value;
+    nuevoUsuario.edad = Number(this.administradorForm.get("edad")?.value);
+    nuevoUsuario.DNI = Number(this.administradorForm.get("dni")?.value);
     nuevoUsuario.email = this.administradorForm.get("email")?.value;
     nuevoUsuario.password = this.administradorForm.get("password")?.value;
     nuevoUsuario.tipo = "administrador"

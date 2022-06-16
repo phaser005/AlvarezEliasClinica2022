@@ -2,7 +2,8 @@
 <h3 align="center"> Listado de usuarios registrados</h3>
 <br>
 <div align="center">
-    <a class="btn btn-outline-primary me-2" routerLink='/alta-administrador' role="button">Crear nuevo Administrador</a>
+    <a class="btn btn-outline-primary me-2" routerLink='/registro/administrador' role="button">Crear nuevo Administrador</a>
+    <a class="btn btn-outline-primary me-2"  style="margin-right: 10px;" role="button" (click)="generateExcel()">Exportar a Excel</a>
 </div>
 <br>
 
@@ -32,7 +33,11 @@
             </ng-template>
             <td>{{usuario.edad}}</td>
             <td>{{usuario.email}}</td>
-            <td *ngIf="usuario.tipo === 'especialista'; else noEspecialista">{{usuario.especialidad}}</td>
+            <td *ngIf="usuario.tipo === 'especialista'; else noEspecialista">
+                <p *ngFor="let especialidad of usuario.especialidad">
+                    {{especialidad}}
+                </p>
+            </td>
             <ng-template #noEspecialista>
                 <td>No es Especialista</td>
             </ng-template>
