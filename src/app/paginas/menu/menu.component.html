@@ -66,10 +66,10 @@
                 <a class="nav-link active" aria-current="page" href="/mi-perfil">Mi perfil</a>
             </li>
             <li class="nav-item" *ngIf="verificarUsuario() === 'administrador' ||  verificarUsuario() === 'paciente'">
-                <a class="nav-link active" aria-current="page" href="/solicitar-turno">Solicitar Turno</a>
+                <a class="nav-link active" aria-current="page" href="/turnos/solicitar-turno">Solicitar Turno</a>
             </li>
             <li class="nav-item" *ngIf="verificarUsuario() === 'paciente' ||  verificarUsuario() === 'especialista'">
-                <a class="nav-link active" aria-current="page" href="turnos/mis-turnos">Mis Turnos</a>
+                <a class="nav-link active" aria-current="page" href="/turnos/mis-turnos">Mis Turnos</a>
             </li>
             <li class="nav-item" *ngIf="verificarUsuario() === 'administrador' ">
                 <a class="nav-link active" aria-current="page" href="/turnos/turnos">Turnos</a>
@@ -84,6 +84,7 @@
                 class="dropdown-item" href="/alta-administrador">Como Administrador</a></li>
             </ul>
           </li-->
+          
         </ul>
       <form class="d-flex" *ngIf="logInVerification() === false">
         <a class="btn btn-outline-primary me-2" routerLink='/login' role="button">Iniciar Sesión</a>

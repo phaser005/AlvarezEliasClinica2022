@@ -1,4 +1,4 @@
-<div align="center">
+<!--div align="center">
     <br>
     <h2>Informacion personal</h2>
     <br>
@@ -36,5 +36,77 @@
     
           </tr>
         </table>
+    </div>
+</div-->
+
+<!--                  NEW PROFILE                       -->
+
+<div class="page-content page-container" id="page-content">
+  <div class="padding">
+      <div class="row container d-flex justify-content-center">
+<div class="col-xl-12 col-md-12">
+    <div class="card user-card-full">
+        <div class="row m-l-0 m-r-0">
+            <div class="col-sm-4 bg-c-lite-green user-profile">
+                <div class="card-block text-center text-white">
+                    <div class="m-b-25">
+                        <img src="{{myInfo.imagen1}}" class="img-radius" alt="User-Profile-Image" width="50px" height="50px">
+                        <br>
+                        <br>
+                        <img *ngIf="myInfo.tipo === 'paciente'"
+                        src="{{myInfo.imagen2}}" class="img-radius" alt="User-Profile-Image" width="50px" height="50px">
+                    </div>
+                    <h6 class="f-w-600">{{myInfo.apellido}} {{myInfo.nombre}}</h6>
+                    <p>{{myInfo.tipo}}</p>
+                    <i class=" mdi mdi-square-edit-outline feather icon-edit m-t-10 f-16"></i>
+                </div>
+            </div>
+            <div class="col-sm-8">
+                <div class="card-block">
+                    <h6 class="m-b-20 p-b-5 b-b-default f-w-600">Informacion Personal</h6>
+                    <div class="row">
+                      <div class="col-sm-4">
+                        <p class="m-b-10 f-w-600">DNI</p>
+                        <h6 class="text-muted f-w-400">{{myInfo.DNI}}</h6>
+                    </div>
+                    <div class="col-sm-4">
+                      <p class="m-b-10 f-w-600">Edad</p>
+                      <h6 class="text-muted f-w-400">{{myInfo.edad}}</h6>
+                  </div>
+                        <div class="col-sm-4">
+                            <p class="m-b-10 f-w-600">Email</p>
+                            <h6 class="text-muted f-w-400">{{myInfo.email}}</h6>
+                        </div>
+
+                    </div>
+                    <h6 class="m-b-20 m-t-40 p-b-5 b-b-default f-w-600"
+                    *ngIf="myInfo.tipo === 'paciente' || myInfo.tipo === 'especialista'">Informacion de atencion</h6>
+                    <div class="row">
+                        <div class="col-sm-6" *ngIf="myInfo.tipo === 'paciente'">
+                            <p class="m-b-10 f-w-600">Obra Social</p>
+                            <h6 class="text-muted f-w-400">{{myInfo.obraSocial}}</h6>
+                        </div>
+                        <div class="col-sm-6" *ngIf="myInfo.tipo === 'especialista'">
+                          <p class="m-b-10 f-w-600">Especialidad/es</p>
+                          <div *ngFor="let especialidad of myInfo.especialidad">
+                            <h6 class="text-muted f-w-400">{{especialidad}}</h6>
+                          </div>
+                        </div>
+                    </div>
+                    <div *ngIf="myInfo.tipo === 'especialista'">
+                      <h6 class="m-b-20 m-t-40 p-b-5 b-b-default f-w-600">Horarios de atencion</h6>
+                    <div class="row">
+                        <div class="col-sm-12">
+                          <button type="button" class="btn btn-primary">Cargar mis horarios</button>
+                        </div>
+                    </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+  </div>
     </div>
 </div>

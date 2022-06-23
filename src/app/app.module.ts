@@ -30,11 +30,17 @@ import { AdministradoresComponent } from './registro/administradores/administrad
 import { MenuComponent } from './paginas/menu/menu.component';
 import { SpinnerModule } from './shared/components/spinner/spinner.module';
 import { ButtonStyleDirective } from './directives/button-style.directive';
+import { FontSizeDirective } from './directives/font-size.directive';
+import { EspecialistIconDirective } from "./directives/especialist-icon.directive";
 import { MisTurnosComponent } from './paginas/mis-turnos/mis-turnos.component';
 import { TurnosComponent } from './paginas/turnos/turnos.component';
 import { SolicitarTurnoComponent } from './paginas/solicitar-turno/solicitar-turno.component';
 import { MiPerfilComponent } from './paginas/mi-perfil/mi-perfil.component';
 import { ExcelGeneratorService } from './servicios/excel-generator.service';
+import { SortPipe } from './pipes/sort.pipe';
+import { AllMayusPipe } from './pipes/all-mayus.pipe';
+import { SortInversePipe } from './pipes/sort-inverse.pipe';
+
 
 @NgModule({
   declarations: [
@@ -52,6 +58,11 @@ import { ExcelGeneratorService } from './servicios/excel-generator.service';
     TurnosComponent,
     SolicitarTurnoComponent,
     MiPerfilComponent,
+    FontSizeDirective,
+    EspecialistIconDirective,
+    SortPipe,
+    AllMayusPipe,
+    SortInversePipe
   ],
   imports: [
     BrowserModule,
