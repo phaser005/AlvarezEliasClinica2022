@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\Phaser\Downloads\UTN DOCS\Z - CUATRIMESTRE ONLINE IV\LABO IV 2022\TP 2\alvarezEliasClinica2022\src\polyfills.ts */"hN/g");
+module.exports = __webpack_require__(/*! C:\Users\Phaser\Downloads\UTN DOCS\ZZ - LABO IV 2023\TP2\alvarezEliasClinica2022\src\polyfills.ts */"hN/g");
 
 
 /***/ }),
